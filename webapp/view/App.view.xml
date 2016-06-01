@@ -52,7 +52,13 @@
 							</IconTabFilter>
 							<IconTabFilter text="{i18n>dataBindingFilter}" key="db">
 								<content>
-									<List items="{/ProductSet}">
+									<List id="productsList" items="{
+																	path : '/ProductSet',
+																	sorter : {
+																		path : 'Category',
+																		group : true
+																	}
+																}">
 										<headerToolbar>
 											<Toolbar>
 												<Title text="{i18n>productListTitle}"/>
