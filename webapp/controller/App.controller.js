@@ -4,14 +4,17 @@ sap.ui.define(
 		"sap/m/MessageToast",
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
-		"opensap/myapp/model/formatter"
+		"opensap/myapp/model/formatter",
+		"opensap/myapp/model/formatMapUrl"
 	],
-	function (Controller, MessageToast, Filter, FilterOperator, formatter) {
+	function (Controller, MessageToast, Filter, FilterOperator, formatter, formatMapUrl) {
 		"use strict";
 		
 		return Controller.extend("opensap.myapp.controller.App", {
 			
 			formatter : formatter,
+			
+			formatMapUrl : formatMapUrl,
 			
 			onShowHello: function () {
 				// read msg from i18n model
@@ -38,6 +41,16 @@ sap.ui.define(
 				// apply filter. an empty filter array simply removes the filter
 				// which will make all entries visible again
 				oBinding.filter(aFilter);
+			}, 
+			
+			onItemSelected : function (oEvent) {
+				var oSelectedItem = oEvent.getParameter("listItem");
+				var oContext = oSelectedItem.getBindingContext();
+				var sPath = oContext.getPath();
+				var oProductDetailPanel = this.byId("productDetailsPanel");
+	
+				oProductDetailPanel.bindElement({path : sPath });
+				this.byId("productDetailsPanel").setVisible(true); 
 			}
 		});
 	}
